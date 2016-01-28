@@ -6,6 +6,7 @@
 package persistencia;
 //MODIFICADO POR MARC
 //modificado por martin
+//Modificado por tervera vez
 
 import atraccions.Atraccio;
 import java.io.FileWriter;
