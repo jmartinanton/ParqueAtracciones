@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package persistencia;
-
+//MODIFICADO POR MARC
 
 import atraccions.Atraccio;
 import java.io.FileWriter;
