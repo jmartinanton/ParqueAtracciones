@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package persistencia;
-
+//modificado por martin
 
 import atraccions.Atraccio;
 import java.io.FileWriter;
