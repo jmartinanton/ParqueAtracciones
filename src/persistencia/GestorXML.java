@@ -59,7 +59,7 @@ public class GestorXML implements ProveedorPersistencia {
             throw new ParcAtraccionsExcepcio("GestorXML.carregar");
         }
     }
-
+//OOOOOOOOOOOOOOOOOOOOOOOOO
     private void fitxerGranja() throws ParcAtraccionsExcepcio {
         //Mètode on heu de crear objectes a partir de les dades guardades en el
         //document XML.
