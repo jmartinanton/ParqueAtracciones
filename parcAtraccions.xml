@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parcAtraccions adreça="C/Serra" nom="AtracioLand">
+    <coordinador cognom="Pallars" nif="38" nom="Maria"/>
+    <coordinador cognom="Jaen" nif="39" nom="Miguel"/>
+    <personaManteniment cognom="Linares" nif="150" nom="Salvador"/>
+    <personaManteniment cognom="Perez" nif="151" nom="Manuela"/>
+    <atraccio nom="atraccioA" tipus="infantil" restriccioEdat="7" restriccioAlcada="0" teProblema="false" codiProblema="null" estaSolucionat="true"/>
+     <atraccio nom="atraccioB" tipus="acció" restriccioEdat="16" restriccioAlcada="1,40" teProblema="true" codiProblema="3" estaSolucionat="false"/>
+    <zona nom="InfantiLandia">
+       <coordinador cognom="Jaen" nif="39" nom="Miguel"/>
+       <personaManteniment cognom="Linares" nif="150" nom="Salvador"/>
+	   <personaManteniment cognom="Perez" nif="151" nom="Manuela"/>
+       <atraccio nom="atraccioA" tipus="infantil" restriccioEdat="7" restriccioAlcada="1,20" teProblema="false" codiProblema="null" estaSolucionat="true"/>
+    </zona>
+</parcAtraccions>
