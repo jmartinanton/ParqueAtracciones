@@ -52,6 +52,12 @@ public class GestorXML implements ProveedorPersistencia {
         Element personasMantenimiento = new Element("personas mantenimiento");
         Element atracciones = new Element("atracciones");
         for (int i = 0; i < pParcAtraccions.getComptaElements(); i++) {
+            if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
+                Element atraccion = new Element("atraccion");
+                Element nombre = new Element("nombre");
+                Element tipus = new Element("tipus");
+                Element resc = new Element("nom");
+            }
             if (pParcAtraccions.getElements()[i] instanceof Coordinador) {
                 //pParcAtraccions.getElements()[i].mostraElement()
                 Element coordinador = new Element("coordinador");
@@ -94,6 +100,7 @@ public class GestorXML implements ProveedorPersistencia {
     private void fitxerGranja() throws ParcAtraccionsExcepcio {
         //Mètode on heu de crear objectes a partir de les dades guardades en el
         //document XML.
+        Element arrel = doc.
     }
 
 }
