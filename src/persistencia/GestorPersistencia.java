@@ -2,7 +2,7 @@ package persistencia;
 
 import principal.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
-
+//dasdasdasdasdadadasdasd
 
 
 /**
