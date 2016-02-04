@@ -243,4 +243,11 @@ public class ParcAtraccions {
         registres[comptaRegistres] = RegistreUsuaris.nouRegistre();
         comptaRegistres++;
     }
+    
+    public Integer seleccionaCoordinador(String pNif) throws ParcAtraccionsExcepcio {
+        int coordinador=0;
+        
+        
+        return coordinador;
+    }
 }
