@@ -56,9 +56,18 @@ public class GestorXML implements ProveedorPersistencia {
         for (int i = 0; i < pParcAtraccions.getComptaElements(); i++) {
             if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
                 Element atraccion = new Element("atraccion");
-                atraccion.appendChild(new Element("nombre").appendChild(((Atraccio)pParcAtraccions.getElements()[i]).getNom()));
+                Element nombre = new Element("nombre");
+                nombre.appendChild(((Atraccio)pParcAtraccions.getElements()[i]).getNom());
+                atraccion.appendChild(nombre);
                 Element tipus = new Element("tipus");
+                tipus.appendChild(((Atraccio)pParcAtraccions.getElements()[i]).getTipus());
+                atraccion.appendChild(tipus);
                 Element restriccionEdad = new Element("restriccionEdad");
+                
+                int restriccionedad = ((Atraccio)pParcAtraccions.getElements()[i]).getRestriccioEdat();
+                String restEdad = String.valueOf(restriccionedad);
+                restriccionEdad.appendChild(restEdad);
+                atraccion.appendChild(nombre);
                 Element restriccionAltura = new Element("restriccionAltura");
                 Element tieneProblema = new Element("tieneProblema");
                 Element codigoProblema = new Element("codigoProblema");
