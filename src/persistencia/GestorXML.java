@@ -56,19 +56,26 @@ public class GestorXML implements ProveedorPersistencia {
         for (int i = 0; i < pParcAtraccions.getComptaElements(); i++) {
             if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
                 Element atraccion = new Element("atraccion");
-                Element nombre = new Element("nombre");
+                atraccion.appendChild(new Element("nombre").appendChild(((Atraccio)pParcAtraccions.getElements()[i]).getNom()));
                 Element tipus = new Element("tipus");
-                Element resc = new Element("nom");
-            }
+                Element restriccionEdad = new Element("restriccionEdad");
+                Element restriccionAltura = new Element("restriccionAltura");
+                Element tieneProblema = new Element("tieneProblema");
+                Element codigoProblema = new Element("codigoProblema");
+                Element estaSolucionat = new Element("estaSolucionat");
+                continue;
+            }         
+            Element nif = new Element("nif");
+            nif.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNif());
+            Element nom = new Element("nom");
+            nom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNom());
+            Element cognom = new Element("cognom");
+            cognom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getCognom());
+            
             if (pParcAtraccions.getElements()[i] instanceof Coordinador) {
                 //pParcAtraccions.getElements()[i].mostraElement()
                 Element coordinador = new Element("coordinador");
-                Element nif = new Element("nif");
-                nif.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNif());
-                Element nom = new Element("nom");
-                nom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNom());
-                Element cognom = new Element("cognom");
-                cognom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getCognom());
+                
             }
             if (pParcAtraccions.getElements()[i] instanceof PersonaManteniment) {
                 pParcAtraccions.getElements()[i].mostraElement();
