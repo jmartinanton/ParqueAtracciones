@@ -29,6 +29,12 @@ public class ParcAtraccions {
         adreca = pAdreca;
     }
 
+    public ParcAtraccions(Integer pCodi, String pNom, String pAdreca) {
+        codi = pCodi;
+        nom = pNom;
+        adreca = pAdreca;
+    }
+
     public static Integer getComptaCodi() {
         return comptaCodi;
     }
@@ -153,34 +159,42 @@ public class ParcAtraccions {
         comptaElements++;
     }
 
-    public Integer seleccionaElement(Integer tipusElement) {
+    public Integer seleccionaElement(Integer tipusElement, String pCodi) {
         Scanner teclado = new Scanner(System.in);
         Integer laClasse = tipusElement;
-        switch (laClasse) {
-            case 0:
-                System.out.println("\nQuè vols seleccionar?:");
-                System.out.println("1. Coordinador:");
-                System.out.println("2. Persona demanteniment:");
-                System.out.println("3. Atracció:");
-                System.out.println("4. Zona:");
-                laClasse = teclado.nextInt();
-                break;
-            case 1:
-                System.out.println("Nif del coordinador?:");
-                break;
-            case 2:
-                System.out.println("Nif de la persona de manteniment?:");
-                break;
-            case 3:
-                System.out.println("Nom de l'Atracció?:");
-                break;
-            case 4:
-                System.out.println("Nom de la Zona?:");
-                break;
+        String codiSel = "";
+        if (pCodi.equals("")) {
+            switch (laClasse) {
+                case 0:
+                    System.out.println("\nQuè vols seleccionar?:");
+                    System.out.println("1. Coordinador:");
+                    System.out.println("2. Persona demanteniment:");
+                    System.out.println("3. Atracció:");
+                    System.out.println("4. Zona:");
+                    laClasse = teclado.nextInt();
+                    break;
+                case 1:
+                    System.out.println("Nif del coordinador?:");
+                    break;
+                case 2:
+                    System.out.println("Nif de la persona de manteniment?:");
+                    break;
+                case 3:
+                    System.out.println("Nom de l'Atracció?:");
+                    break;
+                case 4:
+                    System.out.println("Nom de la Zona?:");
+                    break;
+            }
+            codiSel = teclado.next();
+        } else {
+            codiSel = pCodi;
         }
-        String codiSel = teclado.next();
+
         Integer indexSel = -1;
-        for (int i = 0; i < comptaElements; i++) {
+        for (int i = 0;
+                i < comptaElements;
+                i++) {
             if (elements[i] instanceof Coordinador && laClasse == 1) {
                 if (((Coordinador) elements[i]).getNif().equals(codiSel)) {
                     indexSel = i;
@@ -211,13 +225,13 @@ public class ParcAtraccions {
 
     public void afegeixElementZona(Integer tipusElement) {
         Zona nauSel = null;
-        Integer indexSelNau = seleccionaElement(4);
+        Integer indexSelNau = seleccionaElement(4,"");
         if (indexSelNau >= 0) {
             nauSel = (Zona) this.getElements()[indexSelNau];
         } else {
             System.out.println("\nNo existeix aquesta nau");
         }
-        Integer indexSel = seleccionaElement(tipusElement);
+        Integer indexSel = seleccionaElement(tipusElement,"");
         if (indexSel >= 0) {
             nauSel.afegeixElementZona(getElements()[indexSel]);
         } else {

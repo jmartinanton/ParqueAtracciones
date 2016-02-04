@@ -99,7 +99,7 @@ public class Aplicacio {
                 case 0:
                     break;
                 case 1:
-                    parcsAtraccions[comptaParcsAtraccions] = ParcAtraccions.nouParcAtraccions();
+                    parcsAtraccions[comptaParcsAtraccions] = ParcAtraccions.nouParcAtraccions(null);
                     comptaParcsAtraccions++;
                     break;
                 case 2:
@@ -161,18 +161,18 @@ public class Aplicacio {
                 case 1:
                     switch (tipusElement) {
                         case 1:
-                            parcAtraccionsActual.nouCoordinador();
+                            parcAtraccionsActual.nouCoordinador(null);
                             break;
                         case 2:
-                           parcAtraccionsActual.novaPersonaManteniment();
+                           parcAtraccionsActual.novaPersonaManteniment(null);
                             break;
                         case 3:
-                            parcAtraccionsActual.novaAtraccio();
+                            parcAtraccionsActual.novaAtraccio(null);
                             break;
                     }
                     break;
                 case 2:
-                    Integer indexSel = parcAtraccionsActual.seleccionaElement(tipusElement);
+                    Integer indexSel = parcAtraccionsActual.seleccionaElement(tipusElement,"");
                     if (indexSel >= 0) {
                         parcAtraccionsActual.getElements()[indexSel].modificaElement();
                     } else {
@@ -216,7 +216,7 @@ public class Aplicacio {
                 case 0:
                     break;
                 case 1:
-                    parcAtraccionsActual.novaZona();
+                    parcAtraccionsActual.novaZona(null);
                     break;
                 case 2:
                     parcAtraccionsActual.afegeixElementZona(1);
