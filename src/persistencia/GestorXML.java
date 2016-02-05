@@ -49,49 +49,64 @@ public class GestorXML implements ProveedorPersistencia {
     
     private void construeixModel(ParcAtraccions pParcAtraccions) throws ParcAtraccionsExcepcio {
        //Mètode on heu de construir el document XML
-        Element raiz = new Element("parc atraccions");
+        Element raiz = new Element("parcAtraccions");
+        raiz.addAttribute(new Attribute("codi", pParcAtraccions.getCodi().toString()));
+        raiz.addAttribute(new Attribute("nom", pParcAtraccions.getNom()));
+        raiz.addAttribute(new Attribute("adreca", pParcAtraccions.getAdreca()));
         Element coordinadores = new Element("coordinadores");
-        Element personasMantenimiento = new Element("personas mantenimiento");
+        raiz.appendChild(coordinadores);
+        Element personasMantenimiento = new Element("personasMantenimiento");
+        raiz.appendChild(personasMantenimiento);
         Element atracciones = new Element("atracciones");
+        raiz.appendChild(atracciones);
         for (int i = 0; i < pParcAtraccions.getComptaElements(); i++) {
+            Element elemento;
             if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
-                Element atraccion = new Element("atraccion");
+                elemento = new Element("atraccion");
                 Element nombre = new Element("nombre");
                 nombre.appendChild(((Atraccio)pParcAtraccions.getElements()[i]).getNom());
-                atraccion.appendChild(nombre);
+                elemento.appendChild(nombre);
                 Element tipus = new Element("tipus");
                 tipus.appendChild(((Atraccio)pParcAtraccions.getElements()[i]).getTipus());
-                atraccion.appendChild(tipus);
-                Element restriccionEdad = new Element("restriccionEdad");                
-                int restriccionedad = ((Atraccio)pParcAtraccions.getElements()[i]).getRestriccioEdat();
-                String restEdad = String.valueOf(restriccionedad);
+                elemento.appendChild(tipus);
+                Element restriccionEdad = new Element("restriccionEdad");
                 restriccionEdad.appendChild(String.valueOf(((Atraccio)pParcAtraccions.getElements()[i]).getRestriccioEdat()));
-                atraccion.appendChild(nombre);
+                elemento.appendChild(restriccionEdad);
                 Element restriccionAltura = new Element("restriccionAltura");
+                restriccionAltura.appendChild(String.valueOf(((Atraccio)pParcAtraccions.getElements()[i]).getRestriccioAlcada()));
+                elemento.appendChild(restriccionAltura);
                 Element tieneProblema = new Element("tieneProblema");
+                tieneProblema.appendChild(String.valueOf(((Atraccio)pParcAtraccions.getElements()[i]).getTeProblema()));
+                elemento.appendChild(tieneProblema);
                 Element codigoProblema = new Element("codigoProblema");
-                Element estaSolucionat = new Element("estaSolucionat");
+                codigoProblema.appendChild(String.valueOf(((Atraccio)pParcAtraccions.getElements()[i]).getCodiProblema()));
+                elemento.appendChild(codigoProblema);
+                Element estaSolucionado = new Element("estaSolucionado");
+                estaSolucionado.appendChild(String.valueOf(((Atraccio)pParcAtraccions.getElements()[i]).getEstaSolucionat()));
+                elemento.appendChild(estaSolucionado);
+                atracciones.appendChild(elemento);
                 continue;
-            }         
-            Element nif = new Element("nif");
-            nif.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNif());
-            Element nom = new Element("nom");
-            nom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNom());
-            Element cognom = new Element("cognom");
-            cognom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getCognom());
+            }            
             
             if (pParcAtraccions.getElements()[i] instanceof Coordinador) {
-                //pParcAtraccions.getElements()[i].mostraElement()
-                Element coordinador = new Element("coordinador");
-                
+                elemento = new Element("coordinador");
+                coordinadores.appendChild(elemento);
+            } else {
+                elemento = new Element("personaManteniment");
+                personasMantenimiento.appendChild(elemento);
             }
-            if (pParcAtraccions.getElements()[i] instanceof PersonaManteniment) {
-                pParcAtraccions.getElements()[i].mostraElement();
-            }
-            if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
-                pParcAtraccions.getElements()[i].mostraElement();
-            }
+            
+            Element nif = new Element("nif");
+            nif.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNif());
+            elemento.appendChild(nif);
+            Element nom = new Element("nom");
+            nom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNom());
+            elemento.appendChild(nom);
+            Element cognom = new Element("cognom");
+            cognom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getCognom());
+            elemento.appendChild(cognom);
         }
+        doc.setRootElement(raiz);
     }
 
     private void desarModel(String rutaFitxer) throws ParcAtraccionsExcepcio {
