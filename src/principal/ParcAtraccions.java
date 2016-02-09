@@ -146,12 +146,12 @@ public class ParcAtraccions {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     public Integer seleccionaCoordinador(String pNif) throws ParcAtraccionsExcepcio {
         int codiResposta = -1;
-        if (true){ //SE HA ENCONTRADO EL DNI
+        if (seleccionaElement(1, pNif) != -1) { //SE HA ENCONTRADO EL DNI
             throw new ParcAtraccionsExcepcio("3");
-        }else {
+        } else {
             return codiResposta;
         }
     }
@@ -166,25 +166,15 @@ public class ParcAtraccions {
         } else {
             novaPersManten = personamanteniment;
         }
-        try {
-            if (seleccionaPersonaManteniment(novaPersManten.getNif()) == -1) {
-                elements[comptaElements] = novaPersManten;
-                comptaElements++;
-            }
-        } catch (ParcAtraccionsExcepcio ex) {
-            System.out.println(ex.getMessage());
+
+        if (seleccionaElement(2, novaPersManten.getNif()) == -1) {
+            elements[comptaElements] = novaPersManten;
+            comptaElements++;
+        } else {
+            System.out.println("La persona de manteniment ja existeix");
         }
     }
 
-        public Integer seleccionaPersonaManteniment(String pNif) throws ParcAtraccionsExcepcio {
-        int codiResposta = -1;
-        if (true){ //SE HA ENCONTRADO EL DNI
-            throw new ParcAtraccionsExcepcio("3");
-        }else {
-            return codiResposta;
-        }
-    }
-        
     /*
      Atraccions
      */
@@ -195,54 +185,36 @@ public class ParcAtraccions {
         } else {
             novaAtrac = atraccio;
         }
-        try {
-            if (seleccionaAtraccio(novaAtrac.getNom()) == -1) {
-                elements[comptaElements] = novaAtrac;
-                comptaElements++;
-            }
-        } catch (ParcAtraccionsExcepcio ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
 
-        public Integer seleccionaAtraccio(String codi) throws ParcAtraccionsExcepcio {
-        int codiResposta = -1;
-        if (true){ //SE HA ENCONTRADO EL DNI
-            throw new ParcAtraccionsExcepcio("3");
-        }else {
-            return codiResposta;
+        if (seleccionaElement(3, novaAtrac.getNom()) == -1) {
+            elements[comptaElements] = novaAtrac;
+            comptaElements++;
+        } else {
+            System.out.println("La atracció ja existeix");
         }
-    }
 
+    }
 
     /*
      Zones
      */
-public void novaZona(Zona zona) {
+    public void novaZona(Zona zona) {
         Zona novaZo;
         if (zona == null) {
             novaZo = Zona.novaZona();
         } else {
             novaZo = zona;
         }
-        try {
-            if (seleccionaZona(novaZo.getNom()) == -1) {
-                elements[comptaElements] = novaZo;
-                comptaElements++;
-            }
-        } catch (ParcAtraccionsExcepcio ex) {
-            System.out.println(ex.getMessage());
+
+        if (seleccionaElement(4, novaZo.getNom()) == -1) {
+            elements[comptaElements] = novaZo;
+            comptaElements++;
+        } else {
+            System.out.println("La zona ja existeix");
         }
+
     }
 
-        public Integer seleccionaZona(String nom) throws ParcAtraccionsExcepcio {
-        int codiResposta = -1;
-        if (true){ //SE HA ENCONTRADO EL DNI
-            throw new ParcAtraccionsExcepcio("3");
-        }else {
-            return codiResposta;
-        }
-    }
     /*
      Elements
      */
