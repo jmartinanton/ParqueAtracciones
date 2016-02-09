@@ -16,7 +16,6 @@ import personal.Persona;
 import personal.PersonaManteniment;
 import principal.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
-import zones.Zona;
 
 public class GestorXML implements ProveedorPersistencia {
 
@@ -60,7 +59,6 @@ public class GestorXML implements ProveedorPersistencia {
         raiz.appendChild(personasMantenimiento);
         Element atracciones = new Element("atracciones");
         raiz.appendChild(atracciones);
-        Element zona = new Element("")
         for (int i = 0; i < pParcAtraccions.getComptaElements(); i++) {
             Element elemento;
             if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
@@ -88,22 +86,15 @@ public class GestorXML implements ProveedorPersistencia {
                 elemento.appendChild(estaSolucionado);
                 atracciones.appendChild(elemento);
                 continue;
-            }                
+            }            
+            
             if (pParcAtraccions.getElements()[i] instanceof Coordinador) {
                 elemento = new Element("coordinador");
                 coordinadores.appendChild(elemento);
-                continue;
-            }
-            if (pParcAtraccions.getElements()[i] instanceof PersonaManteniment)
+            } else {
                 elemento = new Element("personaManteniment");
                 personasMantenimiento.appendChild(elemento);
-                continue;
             }
-            if (pParcAtraccions.getElements()[i] instanceof Zona)
-                elemento = new Element("zona");
-                personasMantenimiento.appendChild(elemento);
-                continue;
-            }            
             
             Element nif = new Element("nif");
             nif.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNif());

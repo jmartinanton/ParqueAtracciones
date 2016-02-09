@@ -99,7 +99,7 @@ public class Aplicacio {
                 case 0:
                     break;
                 case 1:
-                    parcsAtraccions[comptaParcsAtraccions] = ParcAtraccions.nouParcAtraccions(null);
+                    parcsAtraccions[comptaParcsAtraccions] = ParcAtraccions.nouParcAtraccions();
                     comptaParcsAtraccions++;
                     break;
                 case 2:
