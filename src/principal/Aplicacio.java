@@ -20,7 +20,7 @@ public class Aplicacio {
     static private Integer tipusElement = 0;
     static private GestorPersistencia gp = new GestorPersistencia();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         menuPrincipal();
     }
 
