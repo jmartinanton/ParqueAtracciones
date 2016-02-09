@@ -129,36 +129,123 @@ public class ParcAtraccions {
     /*
      Coordinadors
      */
-    public void nouCoordinador() {
-        elements[comptaElements] = Coordinador.nouCoordinador();
-        comptaElements++;
+    public void nouCoordinador(Coordinador coordinador) {
+        Coordinador nouCoord;
+        if (coordinador == null) {
+            nouCoord = Coordinador.nouCoordinador();
+        } else {
+
+            nouCoord = coordinador;
+        }
+        try {
+            if (seleccionaCoordinador(nouCoord.getNif()) == -1) {
+                elements[comptaElements] = nouCoord;
+                comptaElements++;
+            }
+        } catch (ParcAtraccionsExcepcio ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public Integer seleccionaCoordinador(String pNif) throws ParcAtraccionsExcepcio {
+        int codiResposta = -1;
+        if (true){ //SE HA ENCONTRADO EL DNI
+            throw new ParcAtraccionsExcepcio("3");
+        }else {
+            return codiResposta;
+        }
     }
 
     /*
      Personal manteniment
      */
-    public void novaPersonaManteniment() {
-        elements[comptaElements] = PersonaManteniment.novaPersonaManteniment();
-        comptaElements++;
+    public void novaPersonaManteniment(PersonaManteniment personamanteniment) {
+        PersonaManteniment novaPersManten;
+        if (personamanteniment == null) {
+            novaPersManten = PersonaManteniment.novaPersonaManteniment();
+        } else {
+            novaPersManten = personamanteniment;
+        }
+        try {
+            if (seleccionaPersonaManteniment(novaPersManten.getNif()) == -1) {
+                elements[comptaElements] = novaPersManten;
+                comptaElements++;
+            }
+        } catch (ParcAtraccionsExcepcio ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
+        public Integer seleccionaPersonaManteniment(String pNif) throws ParcAtraccionsExcepcio {
+        int codiResposta = -1;
+        if (true){ //SE HA ENCONTRADO EL DNI
+            throw new ParcAtraccionsExcepcio("3");
+        }else {
+            return codiResposta;
+        }
+    }
+        
     /*
      Atraccions
      */
-    public void novaAtraccio() {
-        elements[comptaElements] = Atraccio.novaAtraccio();
-        comptaElements++;
+    public void novaAtraccio(Atraccio atraccio) {
+        Atraccio novaAtrac;
+        if (atraccio == null) {
+            novaAtrac = Atraccio.novaAtraccio();
+        } else {
+            novaAtrac = atraccio;
+        }
+        try {
+            if (seleccionaAtraccio(novaAtrac.getNom()) == -1) {
+                elements[comptaElements] = novaAtrac;
+                comptaElements++;
+            }
+        } catch (ParcAtraccionsExcepcio ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+        public Integer seleccionaAtraccio(String codi) throws ParcAtraccionsExcepcio {
+        int codiResposta = -1;
+        if (true){ //SE HA ENCONTRADO EL DNI
+            throw new ParcAtraccionsExcepcio("3");
+        }else {
+            return codiResposta;
+        }
     }
 
 
     /*
      Zones
      */
-    public void novaZona() {
-        elements[comptaElements] = Zona.novaZona();
-        comptaElements++;
+public void novaZona(Zona zona) {
+        Zona novaZo;
+        if (zona == null) {
+            novaZo = Zona.novaZona();
+        } else {
+            novaZo = zona;
+        }
+        try {
+            if (seleccionaZona(novaZo.getNom()) == -1) {
+                elements[comptaElements] = novaZo;
+                comptaElements++;
+            }
+        } catch (ParcAtraccionsExcepcio ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
+        public Integer seleccionaZona(String nom) throws ParcAtraccionsExcepcio {
+        int codiResposta = -1;
+        if (true){ //SE HA ENCONTRADO EL DNI
+            throw new ParcAtraccionsExcepcio("3");
+        }else {
+            return codiResposta;
+        }
+    }
+    /*
+     Elements
+     */
     public Integer seleccionaElement(Integer tipusElement, String pCodi) {
         Scanner teclado = new Scanner(System.in);
         Integer laClasse = tipusElement;
@@ -225,13 +312,13 @@ public class ParcAtraccions {
 
     public void afegeixElementZona(Integer tipusElement) {
         Zona nauSel = null;
-        Integer indexSelNau = seleccionaElement(4,"");
+        Integer indexSelNau = seleccionaElement(4, "");
         if (indexSelNau >= 0) {
             nauSel = (Zona) this.getElements()[indexSelNau];
         } else {
             System.out.println("\nNo existeix aquesta nau");
         }
-        Integer indexSel = seleccionaElement(tipusElement,"");
+        Integer indexSel = seleccionaElement(tipusElement, "");
         if (indexSel >= 0) {
             nauSel.afegeixElementZona(getElements()[indexSel]);
         } else {
@@ -242,14 +329,5 @@ public class ParcAtraccions {
     public void afegeixRegistre() {
         registres[comptaRegistres] = RegistreUsuaris.nouRegistre();
         comptaRegistres++;
-    }
-    
-    public Integer seleccionaCoordinador(String pNif) throws ParcAtraccionsExcepcio {
-        int codiResposta=-1;
-        
-        
-        
-        
-        return codiResposta;
     }
 }
