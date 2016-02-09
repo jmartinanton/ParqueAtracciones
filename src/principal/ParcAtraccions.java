@@ -245,9 +245,11 @@ public class ParcAtraccions {
     }
     
     public Integer seleccionaCoordinador(String pNif) throws ParcAtraccionsExcepcio {
-        int coordinador=0;
+        int codiResposta=-1;
         
         
-        return coordinador;
+        
+        
+        return codiResposta;
     }
 }
