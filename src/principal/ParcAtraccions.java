@@ -30,9 +30,9 @@ public class ParcAtraccions {
     }
 
     public ParcAtraccions(Integer pCodi, String pNom, String pAdreca) {
-        codi = pCodi;
-        nom = pNom;
-        adreca = pAdreca;
+        this.codi = pCodi;
+        this.nom = pNom;
+        this.adreca = pAdreca;
     }
 
     public static Integer getComptaCodi() {
@@ -119,7 +119,14 @@ public class ParcAtraccions {
         System.out.println("\nEntra la nova adreça:");
         this.setAdreça(dades.nextLine());
     }
-
+    
+        //CAMBIAR EL METODO ORIGINAL POR ESTE PARA LA PARTE 2
+/*
+     public void modificaParcAtraccions(String nom, String adreça) {
+        this.nom = nom;
+        this.adreca = adreca;
+    }
+*/
     public void mostraParcAtraccions() {
         System.out.println("\nLes dades del parc d'atraccions amb codi " + getCodi() + " són:");
         System.out.println("\nNom:" + getNom());
