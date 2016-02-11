@@ -14,6 +14,7 @@ import nu.xom.*;
 import personal.Coordinador;
 import personal.Persona;
 import personal.PersonaManteniment;
+import principal.Aplicacio;
 import principal.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
 import zones.Zona;
@@ -204,13 +205,13 @@ public class GestorXML implements ProveedorPersistencia {
     private void fitxerGranja() throws ParcAtraccionsExcepcio {
         //Mètode on heu de crear objectes a partir de les dades guardades en el
         //document XML.
-        
         Element raiz = doc.getRootElement();
         Elements elemento = raiz.getChildElements();
         for (int i = 0; i < elemento.size(); i++) {
             if (elemento.get(i).getQualifiedName().equals("zonas")) {
-                Zona zona = new Zona("")
-                parcAtraccionsActual.novaZona();
+                Zona zona = new Zona(elemento.get(i).getAttributeValue("nombre"));
+                Aplicacio.
+                parcAtraccionsActual.novaZona(zona);
             }
         }
         
