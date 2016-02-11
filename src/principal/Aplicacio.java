@@ -214,7 +214,6 @@ public class Aplicacio {
                     break;
                 default:
                     throw new ParcAtraccionsExcepcio("1");
-
             }
         } while (opcio != 0);
     }
