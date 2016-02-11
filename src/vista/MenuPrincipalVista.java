@@ -13,6 +13,16 @@ public class MenuPrincipalVista {
     private Integer alcada = 600;
 
     public MenuPrincipalVista() {
+        
+        frame = new JFrame("Menu Principal");
+        GridLayout layoutGrid = new GridLayout();
+        Button btnSalir = new Button("0. Sortir");
+        Button btnMenuParc = new Button("1. Menú parc d'atraccions");
+        Button btnMenuAtraccions = new Button("2. Menú atraccions");
+        layoutGrid.addLayoutComponent(null, btnSalir);
+        layoutGrid.addLayoutComponent(null, btnMenuParc);
+        layoutGrid.addLayoutComponent(null, btnMenuAtraccions);
+        frame.
         /*
         Amb les propietats d'aquesta classe, heu de fer el següent (no afegiu cap listener a cap control)
             Heu de crear l'objecte JFrame amb títol "Menú Principal" i layout Grid d'una columna
