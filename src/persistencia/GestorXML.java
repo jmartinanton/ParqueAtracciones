@@ -207,7 +207,9 @@ public class GestorXML implements ProveedorPersistencia {
         Element raiz = doc.getRootElement();
         Elements elemento = raiz.getChildElements();
         for (int i = 0; i < elemento.size(); i++) {
-            if (elemento.get(i).)
+            if (elemento.get(i).getQualifiedName().equals("zonas")) {
+                parcAtraccionsActual.novaZona(null);
+            }
         }
         
     }
