@@ -13,7 +13,7 @@ public class Zona implements Element {
     private String nom;
     //private Element[] elements = new Element[100];
     private ArrayList<Element> elements = new ArrayList<>();
-    private Integer comptaElements = 0;
+    //private Integer comptaElements = 0;
 
     public Zona(String pNom) {
         nom = pNom;
@@ -35,14 +35,6 @@ public class Zona implements Element {
         this.elements = elements;
     }
 
-    public Integer getComptaElements() {
-        return comptaElements;
-    }
-
-    public void setComptaElements(Integer comptaElements) {
-        this.comptaElements = comptaElements;
-    }
-
    public static Zona novaZona() {
         Scanner dades = new Scanner(System.in);
         String nomZona;
@@ -53,8 +45,8 @@ public class Zona implements Element {
 
     public void afegeixElementZona(Element element) {
         //elements[comptaElements] = element;
-        elements.set(comptaElements, element);
-        comptaElements++;
+        elements.set(elements.size(), element);
+        //comptaElements++;
     }
 
     public void modificaElement() {
@@ -67,7 +59,7 @@ public class Zona implements Element {
     public void mostraElement() {
         System.out.println("\nNom:" + getNom());
         System.out.println("Aquesta zona està formada pels elements:");
-        for (int i = 0; i < getComptaElements(); i++) {
+        for (int i = 0; i < elements.size(); i++) {
             getElements().get(i).mostraElement();
         }
     }
