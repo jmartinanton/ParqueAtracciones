@@ -20,11 +20,17 @@ public class Aplicacio {
     static private Integer tipusElement = 0;
     static private GestorPersistencia gp = new GestorPersistencia();
 
-    public static void main(String[] args) {        
-        menuPrincipal();
+    public static void main(String[] args) {
+        try {
+            menuPrincipal();
+        } catch (ParcAtraccionsExcepcio ex) {
+            ex.getMessage();
+        }
+        
+
     }
 
-    private static void menuPrincipal() {
+    private static void menuPrincipal() throws ParcAtraccionsExcepcio{
         int opcio = 0;
         Scanner teclado = new Scanner(System.in);
         do {
@@ -40,8 +46,12 @@ public class Aplicacio {
                 case 0:
                     break;
                 case 1:
-                    menuParcAtraccions();
-                    break;
+                    try{
+                        menuParcAtraccions();
+                        break;
+                    } catch (ParcAtraccionsExcepcio ex){
+                        ex.getMessage();
+                    }
                 case 2:
                     if (parcAtraccionsActual != null) {
                         tipusElement = 1;
@@ -75,13 +85,13 @@ public class Aplicacio {
                     }
                     break;
                 default:
-                    System.out.println("\nS'ha de seleccionar una opció correcta del menú.");
-                    break;
+                    throw new ParcAtraccionsExcepcio("1");
+
             }
         } while (opcio != 0);
     }
 
-    public static void menuParcAtraccions() {
+    public static void menuParcAtraccions() throws ParcAtraccionsExcepcio {
         int opcio = 0;
         Scanner teclado = new Scanner(System.in);
         do {
@@ -124,28 +134,37 @@ public class Aplicacio {
                     }
                     break;
                 case 5: //Carregar parc atracció
-                    comptaParcsAtraccions = 0;
-                    parcsAtraccions = new ParcAtraccions[1];
-                    gp.carregarParcAtraccions("XML", FITXER);
-                    parcsAtraccions[comptaParcsAtraccions] = gp.getGestor().getParcAtraccions();
-                    comptaParcsAtraccions++;
-                    break;
-                case 6: //Desar parc atracció
-                    indexSel = seleccionaParcAtraccions();
-                    if (indexSel >= 0) {
-                        gp.desarParcAtraccions("XML", FITXER, parcsAtraccions[indexSel]);
-                    } else {
-                        System.out.println("\nNo existeix aquest parc d'atraccions");
+                    try {
+                        comptaParcsAtraccions = 0;
+                        parcsAtraccions = new ParcAtraccions[1];
+                        gp.carregarParcAtraccions("XML", FITXER);
+                        parcsAtraccions[comptaParcsAtraccions] = gp.getGestor().getParcAtraccions();
+                        comptaParcsAtraccions++;
+                        break;
+                    } catch (ParcAtraccionsExcepcio ex) {
+                        System.out.println(ex.getMessage());
                     }
-                    break;                    
+
+                case 6: //Desar parc atracció
+                    try {
+                        indexSel = seleccionaParcAtraccions();
+                        if (indexSel >= 0) {
+                            gp.desarParcAtraccions("XML", FITXER, parcsAtraccions[indexSel]);
+                        } else {
+                            System.out.println("\nNo existeix aquest parc d'atraccions");
+                        }
+                        break; 
+                    } catch (ParcAtraccionsExcepcio ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                   
                 default:
-                    System.out.println("\nS'ha de seleccionar una opció correcta del menú.");
-                    break;
+                    throw new ParcAtraccionsExcepcio("1");
             }
         } while (opcio != 0);
     }
 
-    public static void menuElement() {
+    public static void menuElement() throws ParcAtraccionsExcepcio {
         int opcio = 0;
         Scanner teclado = new Scanner(System.in);
         do {
@@ -194,13 +213,13 @@ public class Aplicacio {
                     }
                     break;
                 default:
-                    System.out.println("\nS'ha de seleccionar una opció correcta del menú.");
-                    break;
+                    throw new ParcAtraccionsExcepcio("1");
+
             }
         } while (opcio != 0);
     }
 
-    public static void menuZones() {
+    public static void menuZones() throws ParcAtraccionsExcepcio {
         int opcio = 0;
         Scanner teclado = new Scanner(System.in);
         do {
@@ -236,8 +255,7 @@ public class Aplicacio {
                     }
                     break;
                 default:
-                    System.out.println("\nS'ha de seleccionar una opció correcta del menú.");
-                    break;
+                    throw new ParcAtraccionsExcepcio("1");
             }
         } while (opcio != 0);
     }
