@@ -207,14 +207,19 @@ public class GestorXML implements ProveedorPersistencia {
         //document XML.
         Element raiz = doc.getRootElement();
         Elements elemento = raiz.getChildElements();
-        for (int i = 0; i < elemento.size(); i++) {
+        for (int i = 0; i < elemento.size(); i++) { //Iteramos sobre todo
             if (elemento.get(i).getQualifiedName().equals("zonas")) {
-                Zona zona = new Zona(elemento.get(i).getAttributeValue("nombre"));
-                Aplicacio.
-                parcAtraccionsActual.novaZona(zona);
+                Elements elemento2 = elemento.get(i).getChildElements();
+                for (int j = 0; j < elemento2.size(); j++) { //Iteramos sobre las zonas
+                    Zona zona = new Zona(elemento2.get(j).getAttributeValue("nombre"));
+                    Aplicacio.parcsAtraccions[0].novaZona(zona);
+                    Elements elemento3 = elemento2.get(j).getChildElements();
+                    for (int k = 0; k < elemento3.size(); k++) { //Iteramos sobre una zona
+                        if (elemento3.get(k))
+                    }
+                }
             }
-        }
-        
+        }        
     }
 
 }
