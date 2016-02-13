@@ -24,7 +24,7 @@ public class Aplicacio {
         try {
             menuPrincipal();
         } catch (ParcAtraccionsExcepcio ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         }
         
 
@@ -50,7 +50,7 @@ public class Aplicacio {
                         menuParcAtraccions();
                         break;
                     } catch (ParcAtraccionsExcepcio ex){
-                        ex.getMessage();
+                        System.out.println(ex.getMessage());
                     }
                 case 2:
                     if (parcAtraccionsActual != null) {

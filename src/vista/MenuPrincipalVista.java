@@ -2,6 +2,7 @@ package vista;
 
 import java.awt.*;
 import javax.swing.*;
+import principal.ParcAtraccionsExcepcio;
 
 public class MenuPrincipalVista {
 
@@ -11,18 +12,28 @@ public class MenuPrincipalVista {
 
     private Integer amplada = 800;
     private Integer alcada = 600;
+    
 
     public MenuPrincipalVista() {
         
+        JButton btnSalir = new JButton("0. Sortir");
+        JButton btnMenuParc = new JButton("1. Menú parc d'atraccions");
+        JButton btnMenuAtraccions = new JButton("2. Menú atraccions");
+        JButton[] arrayBotones = {btnSalir,btnMenuParc,btnMenuAtraccions};
+        setMenuButtons(arrayBotones);
+        
+        GridLayout layoutGrid = new GridLayout(0, 1);
         frame = new JFrame("Menu Principal");
-        GridLayout layoutGrid = new GridLayout();
-        Button btnSalir = new Button("0. Sortir");
-        Button btnMenuParc = new Button("1. Menú parc d'atraccions");
-        Button btnMenuAtraccions = new Button("2. Menú atraccions");
-        layoutGrid.addLayoutComponent(null, btnSalir);
-        layoutGrid.addLayoutComponent(null, btnMenuParc);
-        layoutGrid.addLayoutComponent(null, btnMenuAtraccions);
-        frame.
+        frame.setLayout(layoutGrid);
+        
+        for (JButton menuButton : menuButtons) {
+            frame.add(menuButton);
+        }
+
+        frame.setSize(amplada, alcada);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         /*
         Amb les propietats d'aquesta classe, heu de fer el següent (no afegiu cap listener a cap control)
             Heu de crear l'objecte JFrame amb títol "Menú Principal" i layout Grid d'una columna
