@@ -18,6 +18,11 @@ public class ControladorPrincipal implements ActionListener {
     static private final String[] METODEPERSISTENCIA = {"XML"};
 
     public ControladorPrincipal() {
+        
+        menuPrincipalVista = new MenuPrincipalVista();
+        for(JButton menuButton: menuPrincipalVista.getMenuButtons()){
+            menuButton.addActionListener(this);
+        }
         /*
         S'inicialitza la propietat menuPrincipalVista (això mostrarà el menú principal)
         A cada botó del menú, s'afegeix aquest mateix objecte (ControladorPrincipal) com a listener
@@ -25,6 +30,11 @@ public class ControladorPrincipal implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        JButton botonpresionado = (JButton) e.getSource();
+        JButton[] arrayBotones = menuPrincipalVista.getMenuButtons();
+        for (int i = 0; i < arrayBotones.length; i++) {
+            if (arrayBotones[i] == botonpresionado) bifurcaOpcio (i);
+        }
          /*
         S'ha de cridar a bifurcaOpcio segons l'opció premuda. Penseu que l'opció es correspon amb
         la posició que el botó ocupa a l'array de botons de menuPrincipalVista
