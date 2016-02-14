@@ -29,6 +29,32 @@ public class ParcAtraccionsForm {
     private JButton bSortir;   
 
     public ParcAtraccionsForm() {
+        
+        bDesar = new JButton("Desar");
+        bSortir = new JButton("Sortir");
+        lCodi = new JLabel("Codi");
+        tCodi = new JTextField();
+        lNom = new JLabel("Nom");
+        tNom = new JTextField();
+        lAdreça = new JLabel("Adreça");
+        tAdreça = new JTextField();
+        
+        GridLayout layoutGrid = new GridLayout(0, 1);
+        frame = new JFrame("Formulari Parc d'Atraccions");
+        frame.setLayout(layoutGrid);
+        frame.add(lCodi);
+        frame.add(tCodi);
+        frame.add(lNom);
+        frame.add(tNom);
+        frame.add(lAdreça);
+        frame.add(tAdreça);
+        frame.add(bDesar);
+        frame.add(bSortir);
+        
+
+        frame.setSize(amplada, alcada);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
         Amb les propietats d'aquesta classe, heu de fer el següent (no afegiu cap listener a cap control)
             Heu de crear l'objecte JFrame amb títol "Formulari Parc d'Atraccions" i layout Grid d'una columna
