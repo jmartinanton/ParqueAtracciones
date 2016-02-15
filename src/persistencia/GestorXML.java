@@ -8,16 +8,17 @@ package persistencia;
 //modificado por martin
 //Modificado por tervera vez
 
-import atraccions.Atraccio;
+import model.Atraccio;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import nu.xom.*;
-import personal.Coordinador;
-import personal.Persona;
-import personal.PersonaManteniment;
+import model.Coordinador;
+import model.Persona;
+import model.PersonaManteniment;
 import principal.Aplicacio;
-import principal.ParcAtraccions;
+import model.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
-import zones.Zona;
+import model.Zona;
 
 public class GestorXML implements ProveedorPersistencia {
 
@@ -44,9 +45,10 @@ public class GestorXML implements ProveedorPersistencia {
     }
 
     @Override
-    public void carregarParcAtraccions(String nomFitxer) throws ParcAtraccionsExcepcio {
+    public ParcAtraccions carregarParcAtraccions(String nomFitxer) throws ParcAtraccionsExcepcio {
         carregarFitxer(nomFitxer);
-        fitxerGranja();
+        fitxerParcAtraccions();
+        return parcAtraccions;
     }
     
     
@@ -173,7 +175,7 @@ public class GestorXML implements ProveedorPersistencia {
             elemento.appendChild(cognom);
         }
         doc.setRootElement(raiz);
-        System.out.println(doc.toXML());
+        //System.out.println(doc.toXML());
     }
 
     
@@ -202,11 +204,12 @@ public class GestorXML implements ProveedorPersistencia {
     }
     ///HOLAAAAAAAAAAAAAAAAAaaaaaaaaaaaa
 
-    private void fitxerGranja() throws ParcAtraccionsExcepcio {
+    private void fitxerParcAtraccions() throws ParcAtraccionsExcepcio {
         //Mètode on heu de crear objectes a partir de les dades guardades en el
         //document XML.
         Element raiz = doc.getRootElement();
         Elements elemento = raiz.getChildElements();
+        ArrayList<principal.Element> lista = new ArrayList<>();
         for (int i = 0; i < elemento.size(); i++) { //Iteramos sobre todo
             if (elemento.get(i).getQualifiedName().equals("zonas")) {
                 Elements elemento2 = elemento.get(i).getChildElements();
@@ -221,10 +224,10 @@ public class GestorXML implements ProveedorPersistencia {
                                 Elements elemento5 = elemento4.get(l).getChildElements();
                                 String nom = "", cognom = "", nif = "";
                                 for (int m = 0; m < elemento5.size(); m++) { //Iteramos sobre los atributos de un coordinador                                    
-                                    if (elemento5.get(m).getQualifiedName().equals("nom")) {
+                                    if (elemento5.get(m).getQualifiedName().equals("nombre")) {
                                         nom = elemento5.get(m).getValue();
                                     }
-                                    if (elemento5.get(m).getQualifiedName().equals("cognom")) {
+                                    if (elemento5.get(m).getQualifiedName().equals("apellido")) {
                                         cognom = elemento5.get(m).getValue();
                                     }
                                     if (elemento5.get(m).getQualifiedName().equals("nif")) {
@@ -234,16 +237,16 @@ public class GestorXML implements ProveedorPersistencia {
                                 zona.afegeixElementZona(new Coordinador(nif, nom, cognom));
                             }
                         }
-                        if (elemento3.get(k).getQualifiedName().equals("personasmanteniment")) {
+                        if (elemento3.get(k).getQualifiedName().equals("personasMantenimiento")) {
                             Elements elemento4 = elemento3.get(k).getChildElements();
                             for (int l = 0; l < elemento4.size(); l++) { //Iteramos sobre las personas de manteniment de una zona                                
                                 Elements elemento5 = elemento4.get(l).getChildElements();
                                 String nom = "", cognom = "", nif = "";
                                 for (int m = 0; m < elemento5.size(); m++) { //Iteramos sobre los atributos de una persona de manteniment                                  
-                                    if (elemento5.get(m).getQualifiedName().equals("nom")) {
+                                    if (elemento5.get(m).getQualifiedName().equals("nombre")) {
                                         nom = elemento5.get(m).getValue();
                                     }
-                                    if (elemento5.get(m).getQualifiedName().equals("cognom")) {
+                                    if (elemento5.get(m).getQualifiedName().equals("apellido")) {
                                         cognom = elemento5.get(m).getValue();
                                     }
                                     if (elemento5.get(m).getQualifiedName().equals("nif")) {
@@ -257,7 +260,8 @@ public class GestorXML implements ProveedorPersistencia {
                             Elements elemento4 = elemento3.get(k).getChildElements();
                             for (int l = 0; l < elemento4.size(); l++) { //Iteramos sobre los coordinadores de una zona                                
                                 Elements elemento5 = elemento4.get(l).getChildElements();
-                                String nombre = "", tipo = "", problema = "", codigo = "", solucionado = "";
+                                String nombre = "", tipo = "", codigo = "";
+                                boolean problema = false, solucionado = false;
                                 int edad = 0;
                                 float altura = 0;
                                 for (int m = 0; m < elemento5.size(); m++) { //Iteramos sobre los atributos de un coordinador                                    
@@ -274,23 +278,111 @@ public class GestorXML implements ProveedorPersistencia {
                                         altura = Float.parseFloat(elemento5.get(m).getValue());
                                     }
                                     if (elemento5.get(m).getQualifiedName().equals("tieneProblema")) {
-                                        problema = elemento5.get(m).getValue();
+                                        problema = Boolean.valueOf(elemento5.get(m).getValue());
                                     }
                                     if (elemento5.get(m).getQualifiedName().equals("codigoProblema")) {
                                         codigo = elemento5.get(m).getValue();
                                     }
                                     if (elemento5.get(m).getQualifiedName().equals("estaSolucionado")) {
-                                        solucionado = elemento5.get(m).getValue();
+                                        solucionado = Boolean.valueOf(elemento5.get(m).getValue());
                                     }
                                 }
                                 Atraccio atraccion = new Atraccio(nombre, tipo, edad, altura);
+                                atraccion.setTeProblema(problema);
+                                atraccion.setCodiProblema(codigo);
+                                atraccion.setEstaSolucionat(problema);
                                 zona.afegeixElementZona(atraccion);                                
                             }
-                        }
+                        }                        
                     }
+                    
                 }
             }
-        }        
+            
+            if (elemento.get(i).getQualifiedName().equals("coordinadores")) {
+                Elements elemento2 = elemento.get(i).getChildElements();
+                for (int j = 0; j < elemento2.size(); j++) { //Iteramos sobre los coordinadores                              
+                    Elements elemento3 = elemento2.get(j).getChildElements();
+                    String nom = "", cognom = "", nif = "";
+                    for (int k = 0; k < elemento3.size(); k++) { //Iteramos sobre los atributos de un coordinador                                    
+                        if (elemento3.get(k).getQualifiedName().equals("nombre")) {
+                            nom = elemento3.get(k).getValue();
+                        }
+                        if (elemento3.get(k).getQualifiedName().equals("apellido")) {
+                            cognom = elemento3.get(k).getValue();
+                        }
+                        if (elemento3.get(k).getQualifiedName().equals("nif")) {
+                            nif = elemento3.get(k).getValue();
+                        }
+                    }
+                    lista.add(new Coordinador(nif, nom, cognom));
+                    //zona.afegeixElementZona(new Coordinador(nif, nom, cognom));
+                }
+            }
+            if (elemento.get(i).getQualifiedName().equals("personasMantenimiento")) {
+                Elements elemento2 = elemento.get(i).getChildElements();
+                for (int j = 0; j < elemento2.size(); j++) { //Iteramos sobre las personas de manteniment de una zona                                
+                    Elements elemento3 = elemento2.get(j).getChildElements();
+                    String nom = "", cognom = "", nif = "";
+                    for (int k = 0; k < elemento3.size(); k++) { //Iteramos sobre los atributos de una persona de manteniment                                  
+                        if (elemento3.get(k).getQualifiedName().equals("nombre")) {
+                            nom = elemento3.get(k).getValue();
+                        }
+                        if (elemento3.get(k).getQualifiedName().equals("apellido")) {
+                            cognom = elemento3.get(k).getValue();
+                        }
+                        if (elemento3.get(k).getQualifiedName().equals("nif")) {
+                            nif = elemento3.get(k).getValue();
+                        }
+                    }
+                    lista.add(new PersonaManteniment(nif, nom, cognom));
+                    //zona.afegeixElementZona(new PersonaManteniment(nif, nom, cognom));
+                }
+            }
+            if (elemento.get(i).getQualifiedName().equals("atraccion")) {
+                Elements elemento2 = elemento.get(i).getChildElements();
+                for (int l = 0; l < elemento2.size(); l++) { //Iteramos sobre los coordinadores de una zona                                
+                    Elements elemento5 = elemento2.get(l).getChildElements();
+                    String nombre = "", tipo = "", codigo = "";
+                    boolean problema = false, solucionado = false;
+                    int edad = 0;
+                    float altura = 0;
+                    for (int m = 0; m < elemento5.size(); m++) { //Iteramos sobre los atributos de un coordinador                                    
+                        if (elemento5.get(m).getQualifiedName().equals("nombre")) {
+                            nombre = elemento5.get(m).getValue();
+                        }
+                        if (elemento5.get(m).getQualifiedName().equals("tipo")) {
+                            tipo = elemento5.get(m).getValue();
+                        }
+                        if (elemento5.get(m).getQualifiedName().equals("restriccionEdad")) {
+                            edad = Integer.parseInt(elemento5.get(m).getValue());
+                        }
+                        if (elemento5.get(m).getQualifiedName().equals("restriccionAltura")) {
+                            altura = Float.parseFloat(elemento5.get(m).getValue());
+                        }
+                        if (elemento5.get(m).getQualifiedName().equals("tieneProblema")) {
+                            problema = Boolean.valueOf(elemento5.get(m).getValue());
+                        }
+                        if (elemento5.get(m).getQualifiedName().equals("codigoProblema")) {
+                            codigo = elemento5.get(m).getValue();
+                        }
+                        if (elemento5.get(m).getQualifiedName().equals("estaSolucionado")) {
+                            solucionado = Boolean.valueOf(elemento5.get(m).getValue());
+                        }
+                    }
+                    Atraccio atraccion = new Atraccio(nombre, tipo, edad, altura);
+                    atraccion.setTeProblema(problema);
+                    atraccion.setCodiProblema(codigo);
+                    atraccion.setEstaSolucionat(problema);
+                    lista.add(atraccion);
+                    //zona.afegeixElementZona(atraccion);
+                }
+            }
+        }
+        principal.Element[] array = new principal.Element[lista.size()];
+        for (int i = 0; i < lista.size(); i++) {
+            array[i] = lista.get(i);
+        }
+        Aplicacio.parcsAtraccions[0].setElements(array);
     }
-
 }
