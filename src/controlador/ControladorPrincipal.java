@@ -5,6 +5,7 @@ import model.ParcAtraccions;
 import vista.MenuPrincipalVista;
 import java.awt.event.*;
 import javax.swing.*;
+import principal.ParcAtraccionsExcepcio;
 
 public class ControladorPrincipal implements ActionListener {
 
@@ -16,7 +17,7 @@ public class ControladorPrincipal implements ActionListener {
     static private Integer tipusElement = 0;
     static private GestorPersistencia gp = new GestorPersistencia();
     static private final String[] METODEPERSISTENCIA = {"XML"};
-
+    
     public ControladorPrincipal() {
         
         menuPrincipalVista = new MenuPrincipalVista();
