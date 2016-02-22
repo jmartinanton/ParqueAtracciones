@@ -15,6 +15,20 @@ public class ParcAtraccionsLlista {
     
 
     public ParcAtraccionsLlista() {
+        
+        GridLayout layoutGrid = new GridLayout(0, 1);
+        frame = new JFrame("Llista de parcs d'atraccions");
+        frame.setLayout(layoutGrid);
+        
+        taulaParcAtraccions = new JTable(new ParcAtraccionsTableModel());
+        bSortir = new JButton("Sortir");
+        frame.add(taulaParcAtraccions);
+        frame.add(bSortir);
+        
+
+        frame.setSize(amplada, alcada);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
         Amb les propietats d'aquesta classe, heu de fer el següent (no afegiu cap listener a cap control)
             Heu de crear l'objecte JFrame amb títol "Llista de parcs d'atraccions" i layout Grid d'una columna

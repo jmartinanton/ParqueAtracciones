@@ -1,6 +1,6 @@
 package persistencia;
 
-import principal.ParcAtraccions;
+import model.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
 
 /**
@@ -9,5 +9,5 @@ import principal.ParcAtraccionsExcepcio;
  */
 public interface ProveedorPersistencia {
     public void desarParcAtraccions(String nomFitxer, ParcAtraccions parcAtraccions) throws ParcAtraccionsExcepcio;
-    public void carregarParcAtraccions(String nomFitxer) throws ParcAtraccionsExcepcio;
+    public ParcAtraccions carregarParcAtraccions(String nomFitxer) throws ParcAtraccionsExcepcio;
 }

@@ -1,4 +1,4 @@
-package atraccions;
+package model;
 
 import java.util.Scanner;
 import principal.Element;

@@ -6,6 +6,8 @@ import vista.ParcAtraccionsForm;
 import vista.ParcAtraccionsLlista;
 import vista.MenuParcAtraccionsVista;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import model.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
@@ -126,9 +128,9 @@ public class ControladorParcAtraccions implements ActionListener {
          XXXXXXX S'inhibeix el codi del formulari
          XXXXXXX Es posa aquest parc d'atraccions com parcAtraccionsActual (de ControladorPrincipal) i es canvia la propietat
          XXXXXXX opcioSeleccionada a 2
-        XXXXXXX  Si l'opció seleccionada (al menú parc d'atraccions) era 3 (modificació), llavors
+         XXXXXXX  Si l'opció seleccionada (al menú parc d'atraccions) era 3 (modificació), llavors
          XXXXXXX Nota: no es validen dades amb aquesta opció (per simplificar)
-        XXXXXXX Es modifica l'objecte parcAtraccions amb les dades del formulari (penseu que és el parcAtraccionsActual de ControladorPrincipal)
+         XXXXXXX Es modifica l'objecte parcAtraccions amb les dades del formulari (penseu que és el parcAtraccionsActual de ControladorPrincipal)
          ---- SORTIR ----
          XXXXXXX  Si el botó premut per l'usuari és el botó de sortir del formulari parc d'atraccions, llavors
          XXXXXXX  Heu de tornar al menú parc d'atraccions (i amagar el formulari)
@@ -140,9 +142,10 @@ public class ControladorParcAtraccions implements ActionListener {
     }
 
     private void bifurcaOpcio(Integer opcio) {
-        opcioSeleccionada= opcio;
+        opcioSeleccionada = opcio;
         switch (opcio) {
             case 0: //sortir
+                menuParcAtraccionsVista.getFrame().setVisible(false);
                 ControladorPrincipal.getMenuPrincipalVista().getFrame().setVisible(true);
                 break;
             case 1: // alta
@@ -168,7 +171,7 @@ public class ControladorParcAtraccions implements ActionListener {
                     parcAtraccionsForm = new ParcAtraccionsForm(ControladorPrincipal.getParcAtraccionsActual().getCodi(), ControladorPrincipal.getParcAtraccionsActual().getNom(), ControladorPrincipal.getParcAtraccionsActual().getAdreca());
                     parcAtraccionsForm.getCodi().setEnabled(false);
                     afegirListenersForm();
-                    
+
                 } else {
                     menuParcAtraccionsVista.getFrame().setVisible(true);
                     JOptionPane.showMessageDialog(menuParcAtraccionsVista.getFrame(), "Abans s'ha de crear al menys un parc d'atraccions");
@@ -184,7 +187,8 @@ public class ControladorParcAtraccions implements ActionListener {
                 }
                 break;
             case 5: //carregar
-                JOptionPane.showOptionDialog(null,
+                JTextField inputCodii = new JTextField();
+                JOptionPane.showOptionDialog(menuParcAtraccionsVista.getFrame(),
                         "Ara s'obrirà la finestra per a seleccionar el parc d'atraccions que vols carregar",
                         "Informació",
                         JOptionPane.DEFAULT_OPTION,
@@ -192,32 +196,79 @@ public class ControladorParcAtraccions implements ActionListener {
                         null,
                         null,
                         null);
-                JOptionPane.showOptionDialog(null,
+                String codiEntrat = JOptionPane.showInputDialog(menuParcAtraccionsVista.getFrame(),
                         "Introdueix el codi del parc d'atraccions que vols carregar",
                         "Carregar Parc d'atraccions",
-                        JOptionPane.DEFAULT_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE,
-                        null,
-                        null,
-                        null);
+                        JOptionPane.QUESTION_MESSAGE);
+                if (!codiEntrat.equals("")) {
+                    try {
+                        ParcAtraccions nouParcAtraccions = ControladorPrincipal.getGp().carregarParcAtraccions(ControladorPrincipal.getMETODEPERSISTENCIA()[0], codiEntrat + ".xml");
+                        JTable taulaParc = parcAtraccionsLlista.getTaulaParcAtraccions();
+                        for (int i = 0; i < taulaParc.getRowCount(); i++) {
+                            if (taulaParc.getValueAt(i, 0).equals(codiEntrat)) {
+                                int accion = JOptionPane.showOptionDialog(menuParcAtraccionsVista.getFrame(),
+                                        "Vols substituir el parc de la llista pel que es carregarà del fitxer?",
+                                        "Atenció",
+                                        JOptionPane.YES_NO_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE,
+                                        null,
+                                        null,
+                                        null);
+                                if (accion == 0) {
+                                    taulaParc.getModel().setValueAt(nouParcAtraccions.getCodi().toString(), i, 0);
+                                    taulaParc.getModel().setValueAt(nouParcAtraccions.getNom(), i, 1);
+                                    taulaParc.getModel().setValueAt(nouParcAtraccions.getAdreca(), i, 2);
+                                }
+                            } else {
+                                int posicion = taulaParc.getModel().getRowCount();
+                                taulaParc.getModel().setValueAt(nouParcAtraccions.getCodi().toString(), posicion, 0);
+                                taulaParc.getModel().setValueAt(nouParcAtraccions.getNom(), posicion, 1);
+                                taulaParc.getModel().setValueAt(nouParcAtraccions.getAdreca(), posicion, 2);
+                                JOptionPane.showMessageDialog(menuParcAtraccionsVista.getFrame(), "El Parc d'atraccions s'ha afegit a la llista");
+                            }
+                        }
+
+                    } catch (ParcAtraccionsExcepcio e) {
+                    }
+                }
 
                 /*
-                 X Es mostra un dialog (JOptionPane.showOptionDialog) amb un botó per carregar els documents XML
-                 Un cop seleccionat el botó, amb un altre dialeg, es demana el codi del parc d'atraccions a carregar 
-                 (recordeu que el nom del fitxer és el codi del parc d'atraccions i l'extensió)
-                 Un cop l'usuari ha entrat el codi i ha premut OK,
-                 Es crea un objecte parcAtraccions (nouParcAtraccions) com retorn de cridar a carregarParcAtraccions del gestor de persistència
-                 Es comprova si el codi del nouParcAtraccions ja existeix a la llista de parcs d'atraccions (això donarà la posició on s'ha trobat a la llista)
-                 Si existeix,
-                 es mostra un dialog notificant l'usuari si vol substituir el parc d'atraccions de la llista per la que es carregarà des de el fitxer (JOptionPane.showOptionDialog)
-                 Si l'usuari cancela, no es fa res
-                 Si l'usuari accepta, llavors es posa el nou parc d'atraccions a la llista a la mateixa posició on s'havia trobat aquest codi
-                 Si no existeix,
+                 XXXXXXXXXXX Es mostra un dialog (JOptionPane.showOptionDialog) amb un botó per carregar els documents XML
+                 XXXXXXXXXXX Un cop seleccionat el botó, amb un altre dialeg, es demana el codi del parc d'atraccions a carregar 
+                 XXXXXXXXXXX (recordeu que el nom del fitxer és el codi del parc d'atraccions i l'extensió)
+                 XXXXXXXXXXX Un cop l'usuari ha entrat el codi i ha premut OK,
+                 XXXXXXXXXXX Es crea un objecte parcAtraccions (nouParcAtraccions) com retorn de cridar a carregarParcAtraccions 
+                 XXXXXXXXXXX del gestor de persistència
+                 XXXXXXXXXXX Es comprova si el codi del nouParcAtraccions ja existeix a la llista de parcs d'atraccions (això donarà la posició 
+                 XXXXXXXXXXX on s'ha trobat a la llista)
+                 XXXXXXXXXXX    Si existeix,
+                 XXXXXXXXXXX    es mostra un dialog notificant l'usuari si vol substituir el parc d'atraccions de la llista per la que es 
+                 XXXXXXXXXXX    carregarà des de el fitxer (JOptionPane.showOptionDialog)
+                 XXXXXXXXXXX    Si l'usuari cancela, no es fa res
+                 XXXXXXXXXXX    Si l'usuari accepta, llavors es posa el nou parc d'atraccions a la llista a la mateixa posició on s'havia trobat aquest codi
+                 XXXXXXXXXXX Si no existeix,
                  S'afegeix el nouParcAtraccions a la llista de parcs d'atracció a la darrera posició
                  Es mostra un missatge confirmant l'addició (JOptionPane.showMessageDialog)
                  */
                 break;
             case 6: //desar
+
+                int metodeCarrega = JOptionPane.showOptionDialog(menuParcAtraccionsVista.getFrame(),
+                        "Escull el mètode de gestió de persistència",
+                        "Mètode de gestió de persistència",
+                        JOptionPane.DEFAULT_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        ControladorPrincipal.getMETODEPERSISTENCIA(),
+                        null);
+
+                try {
+                    ControladorPrincipal.getGp().desarParcAtraccions(ControladorPrincipal.getMETODEPERSISTENCIA()[metodeCarrega],
+                            ControladorPrincipal.getParcAtraccionsActual().getCodi() + ".xml",
+                            ControladorPrincipal.getParcAtraccionsActual());
+                } catch (ParcAtraccionsExcepcio ex) {
+                    Logger.getLogger(ControladorParcAtraccions.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 /*
                  Es comprova si s'ha registrar el parc d'atraccions, mostrant, si correspon, missatges d'error (JOptionPane.showMessageDialog)
                  Si el parc d'atraccions està fixat, 

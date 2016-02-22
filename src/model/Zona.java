@@ -1,4 +1,4 @@
-package zones;
+package model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -62,6 +62,10 @@ public class Zona implements Element {
         for (int i = 0; i < elements.size(); i++) {
             getElements().get(i).mostraElement();
         }
+    }
+    
+    public int getComptaElements() {
+        return elements.size();
     }
 
 }

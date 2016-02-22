@@ -1,11 +1,8 @@
-package principal;
+package model;
 
-import personal.PersonaManteniment;
-import atraccions.Atraccio;
-import zones.Zona;
 import java.util.Scanner;
-import gestions.RegistreUsuaris;
-import personal.Coordinador;
+import principal.Element;
+import principal.ParcAtraccionsExcepcio;
 
 /**
  *
@@ -75,8 +72,8 @@ public class ParcAtraccions {
         this.elements = elements;
     }
 
-    public Integer getComptaElements() {
-        return comptaElements;
+    public int getComptaElements() {
+        return elements.length;
     }
 
     public void setComptaElements(Integer comptaElements) {
@@ -121,12 +118,12 @@ public class ParcAtraccions {
     }
     
         //CAMBIAR EL METODO ORIGINAL POR ESTE PARA LA PARTE 2
-/*
+
      public void modificaParcAtraccions(String nom, String adreça) {
         this.nom = nom;
-        this.adreca = adreca;
+        this.adreca = adreça;
     }
-*/
+
     public void mostraParcAtraccions() {
         System.out.println("\nLes dades del parc d'atraccions amb codi " + getCodi() + " són:");
         System.out.println("\nNom:" + getNom());

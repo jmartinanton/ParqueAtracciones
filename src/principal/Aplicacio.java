@@ -1,11 +1,12 @@
 package principal;
 
-import atraccions.Atraccio;
-import zones.Zona;
-import personal.PersonaManteniment;
+import model.ParcAtraccions;
+import model.Atraccio;
+import model.Zona;
+import model.PersonaManteniment;
 import java.util.Scanner;
 import persistencia.GestorPersistencia;
-import personal.Coordinador;
+import model.Coordinador;
 
 /**
  *
@@ -14,7 +15,7 @@ import personal.Coordinador;
 public class Aplicacio {
     
     static private String FITXER = "parcAtraccions";
-    static private ParcAtraccions[] parcsAtraccions = new ParcAtraccions[1];
+    static public ParcAtraccions[] parcsAtraccions = new ParcAtraccions[1];
     static private Integer comptaParcsAtraccions = 0;
     static private ParcAtraccions parcAtraccionsActual = null;
     static private Integer tipusElement = 0;
@@ -201,7 +202,7 @@ public class Aplicacio {
                 case 3:
                     for (int i = 0; i < parcAtraccionsActual.getComptaElements(); i++) {
                         if (parcAtraccionsActual.getElements()[i] instanceof Coordinador && tipusElement == 1) {
-                            parcAtraccionsActual.getElements()[i].elementXml();
+                            parcAtraccionsActual.getElements()[i].mostraElement();
                         }
                         if (parcAtraccionsActual.getElements()[i] instanceof PersonaManteniment && tipusElement == 2) {
                             parcAtraccionsActual.getElements()[i].mostraElement();

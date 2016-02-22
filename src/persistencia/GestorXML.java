@@ -71,7 +71,7 @@ public class GestorXML implements ProveedorPersistencia {
         Element zonas = new Element("zonas");
         raiz.appendChild(zonas);
         for (int i = 0; i < pParcAtraccions.getComptaElements(); i++) {
-            Element elemento = new Element("");
+            Element elemento;
             if (pParcAtraccions.getElements()[i] instanceof Atraccio) {
                 elemento = new Element("atraccion");
                 Element nombre = new Element("nombre");
@@ -97,8 +97,7 @@ public class GestorXML implements ProveedorPersistencia {
                 elemento.appendChild(estaSolucionado);
                 atracciones.appendChild(elemento);
                 continue;
-            }        
-            if (pParcAtraccions.getElements()[i] instanceof Zona) {
+            }else if (pParcAtraccions.getElements()[i] instanceof Zona) {
                 Element raiz2 = new Element("zona");
                 raiz2.addAttribute(new Attribute("nombre", pParcAtraccions.getCodi().toString()));
                 Element coordinadores2 = new Element("coordinadores");
@@ -109,7 +108,7 @@ public class GestorXML implements ProveedorPersistencia {
                 raiz2.appendChild(atracciones2);
                 
                 for (int j = 0; j < ((Zona)pParcAtraccions.getElements()[i]).getComptaElements(); j++) {
-                    Element elemento2 = new Element("");
+                    Element elemento2;
                     if (pParcAtraccions.getElements()[j] instanceof Atraccio) {
                         elemento2 = new Element("atraccion");
                         Element nombre = new Element("nombre");
@@ -155,15 +154,14 @@ public class GestorXML implements ProveedorPersistencia {
                     elemento2.appendChild(cognom);
                 }
                 zonas.appendChild(raiz2);
-            }
-            if (pParcAtraccions.getElements()[i] instanceof Coordinador) {
+            } else if (pParcAtraccions.getElements()[i] instanceof Coordinador) {
                 elemento = new Element("coordinador");
                 coordinadores.appendChild(elemento);
-            } else {
+            } else if (pParcAtraccions.getElements()[i] instanceof PersonaManteniment){
                 elemento = new Element("personaManteniment");
                 personasMantenimiento.appendChild(elemento);
             }        
-            
+           /* 
             Element nif = new Element("nif");
             nif.appendChild(((Persona)pParcAtraccions.getElements()[i]).getNif());
             elemento.appendChild(nif);
@@ -173,6 +171,7 @@ public class GestorXML implements ProveedorPersistencia {
             Element cognom = new Element("cognom");
             cognom.appendChild(((Persona)pParcAtraccions.getElements()[i]).getCognom());
             elemento.appendChild(cognom);
+                   */
         }
         doc.setRootElement(raiz);
         //System.out.println(doc.toXML());

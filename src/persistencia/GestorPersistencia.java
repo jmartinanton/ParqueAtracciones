@@ -1,6 +1,6 @@
 package persistencia;
 
-import principal.ParcAtraccions;
+import model.ParcAtraccions;
 import principal.ParcAtraccionsExcepcio;
 //dasdasdasdasdadadasdasd
 
@@ -27,10 +27,13 @@ public class GestorPersistencia {
         }
     }
 
-    public void carregarParcAtraccions(String tipusPersistencia, String nomFitxer) throws ParcAtraccionsExcepcio {
+    public ParcAtraccions carregarParcAtraccions(String tipusPersistencia, String nomFitxer) throws ParcAtraccionsExcepcio {
+        ProveedorPersistencia gestor = null;
+        ParcAtraccions parcAtraccions = null;
         if (tipusPersistencia.equals("XML")) {
             gestor = new GestorXML();
-            gestor.carregarParcAtraccions(nomFitxer);
+            parcAtraccions = gestor.carregarParcAtraccions(nomFitxer);
         }
+        return parcAtraccions;
     }
 }

@@ -40,6 +40,7 @@ public class ParcAtraccionsForm {
         tAdreça = new JTextField();
         
         GridLayout layoutGrid = new GridLayout(0, 1);
+
         frame = new JFrame("Formulari Parc d'Atraccions");
         frame.setLayout(layoutGrid);
         frame.add(lCodi);

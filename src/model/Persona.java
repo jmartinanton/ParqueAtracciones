@@ -1,4 +1,4 @@
-package personal;
+package model;
 
 import java.util.Scanner;
 import principal.*;
